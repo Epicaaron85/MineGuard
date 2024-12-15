@@ -29,7 +29,7 @@ local function downloadFiles()
     local baseURL = "https://raw.githubusercontent.com/Epicaaron85/MineGuard/main/"
     local files = {
         "startup.lua",
-        "main.lua",
+        "main_guard.lua",
         "manager.lua"
     }
 
