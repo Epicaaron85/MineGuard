@@ -38,7 +38,7 @@ local function downloadFiles()
     end
 
     for _, file in ipairs(files) do
-        local url = baseURL .. file
+        local url = baseURL .. file .. "?v=" .. tostring(math.random(1, 1000000))
         local filePath = "/MineGuard/" .. file
 
         print("Downloading: " .. file)
@@ -74,7 +74,6 @@ local function main()
     downloadFiles()
     print("Download complete! Files saved in the 'MineGuard' directory.")
 
-    -- Automatically move startup.lua to the root if it exists
     if fs.exists("/MineGuard/startup.lua") then
         fs.copy("/MineGuard/startup.lua", "/startup.lua")
         print("Startup file moved to root directory.")
