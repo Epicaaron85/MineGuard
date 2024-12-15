@@ -7,12 +7,11 @@ local function drawInterface()
     clearScreen()
     term.setTextColor(colors.cyan)
     term.setCursorPos(1, 2)
-    term.setBackgroundColor(colors.black)
-    term.clearLine()
     print("===== MineGuard Installer =====")
     term.setCursorPos(1, 4)
     term.setBackgroundColor(colors.blue)
     term.setTextColor(colors.white)
+    term.clearLine()
     term.write(string.rep(" ", 15) .. "Install" .. string.rep(" ", 15))
     term.setBackgroundColor(colors.black)
 end
@@ -29,7 +28,9 @@ end
 local function downloadFiles()
     local baseURL = "https://raw.githubusercontent.com/Epicaaron85/MineGuard/main/"
     local files = {
-        "startup.lua", "main.lua", "manager.lua"
+        "startup.lua",
+        "main.lua",
+        "manager.lua"
     }
 
     if not fs.exists("MineGuard") then
@@ -38,27 +39,34 @@ local function downloadFiles()
 
     for _, file in ipairs(files) do
         local url = baseURL .. file
+        local filePath = "/MineGuard/" .. file
+
+        print("Downloading: " .. file)
         local response = http.get(url)
         if response then
-            local filePath = "MineGuard/" .. file
             local fileHandle = fs.open(filePath, "w")
             fileHandle.write(response.readAll())
             fileHandle.close()
             response.close()
+            print(file .. " downloaded successfully.")
         else
-            print("Error: Impossible to download " .. file)
+            print("Error: Could not download " .. file)
         end
     end
 end
 
 local function main()
-    http.checkURL("https://raw.githubusercontent.com") -- Vérifie que HTTP est activé
+    if not http then
+        print("HTTP API is disabled. Please enable it in the ComputerCraft configuration.")
+        return
+    end
+
     drawInterface()
     waitForButton()
     clearScreen()
-    print("Dowload in prossess ...")
+    print("Downloading files...")
     downloadFiles()
-    print("Dowload Finish !")
+    print("Download complete! Files saved in the 'MineGuard' directory.")
 end
 
 main()
