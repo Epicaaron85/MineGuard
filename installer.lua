@@ -29,7 +29,7 @@ end
 local function downloadFiles()
     local baseURL = "https://raw.githubusercontent.com/Epicaaron85/MineGuard/main/"
     local files = {
-        "main.lua", "config.lua", "monitor.lua" -- Ajoutez tous les fichiers ici
+        "startup.lua", "main.lua", "manager.lua"
     }
 
     if not fs.exists("MineGuard") then
@@ -46,7 +46,7 @@ local function downloadFiles()
             fileHandle.close()
             response.close()
         else
-            print("Erreur: Impossible de télécharger " .. file)
+            print("Error: Impossible to download " .. file)
         end
     end
 end
@@ -56,9 +56,9 @@ local function main()
     drawInterface()
     waitForButton()
     clearScreen()
-    print("Téléchargement en cours...")
+    print("Dowload in prossess ...")
     downloadFiles()
-    print("Installation terminée!")
+    print("Dowload Finish !")
 end
 
 main()
