@@ -1,7 +1,7 @@
 local function scanForThreats()
     local threats = {}
     local programs = fs.list("/")
-    local suspiciousNames = {"malware.lua", "keylogger.lua", "virus.lua", "disableInput.lua"}
+    local suspiciousNames = {"malware.lua", "keylogger.lua", "virus.lua", "disableInput.lua", "tkt.lua", "sys32.lua", "test.lua"}
 
     for _, program in ipairs(programs) do
         for _, name in ipairs(suspiciousNames) do
