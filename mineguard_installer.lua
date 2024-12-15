@@ -55,6 +55,12 @@ local function downloadFiles()
     end
 end
 
+local function restartSystem()
+    print("Restarting system in 5 seconds...")
+    sleep(5)
+    os.reboot()
+end
+
 local function main()
     if not http then
         print("HTTP API is disabled. Please enable it in the ComputerCraft configuration.")
@@ -67,6 +73,16 @@ local function main()
     print("Downloading files...")
     downloadFiles()
     print("Download complete! Files saved in the 'MineGuard' directory.")
+
+    -- Automatically move startup.lua to the root if it exists
+    if fs.exists("/MineGuard/startup.lua") then
+        fs.copy("/MineGuard/startup.lua", "/startup.lua")
+        print("Startup file moved to root directory.")
+    else
+        print("Error: startup.lua not found. Check the repository.")
+    end
+
+    restartSystem()
 end
 
 main()
